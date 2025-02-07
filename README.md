@@ -17,6 +17,8 @@ This project utilizes a subset of the Fitzpatrick17k dataset, a collection of 17
 * Annotations for medical conditions sourced from DermaAmin and Atlas Dermatologico
 ### Fitzpatrick Skin Type (FST)
 
+![Fitzpatrick Skin Type][Skin Types.png]
+
 | Skin type | Typical features                                      | Tanning ability                         |
 |-----------|------------------------------------------------------|-----------------------------------------|
 | **I**     | Pale white skin, blue/green eyes, blond/red hair     | Always burns, does not tan             |
