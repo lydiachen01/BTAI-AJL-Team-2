@@ -15,9 +15,9 @@ This project utilizes a subset of the Fitzpatrick17k dataset, a collection of 17
 * Images labeled with Fitzpatrick skin tone scale (1-6), indicating skin type diversity
 
 * Annotations for medical conditions sourced from DermaAmin and Atlas Dermatologico
-### Fitzpatrick Skin Type (FST)
+### Fitzpatrick Skin Types (FST) ->
 
-![Fitzpatrick Skin Type][Skin Types.png]
+![](Skin_types.png)
 
 | Skin type | Typical features                                      | Tanning ability                         |
 |-----------|------------------------------------------------------|-----------------------------------------|
@@ -27,6 +27,8 @@ This project utilizes a subset of the Fitzpatrick17k dataset, a collection of 17
 | **IV**    | Light brown skin                                     | Burns minimally, tans easily           |
 | **V**     | Brown skin                                          | Rarely burns, tans darkly easily       |
 | **VI**    | Dark brown or black skin                            | Never burns, always tans darkly        |
+### Skin Conditions ->
+![](skin_condition_distribution.png)
 
 ### Feature Columns ->
 
