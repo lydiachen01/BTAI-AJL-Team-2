@@ -30,6 +30,9 @@ This project utilizes a subset of the Fitzpatrick17k dataset, a collection of 17
 ### Skin Conditions ->
 ![](skin_condition_distribution.png)
 
+### Distribution os Skin Types->
+![](fst_distribution.png)
+
 ### Feature Columns ->
 
 | Column                | Data Type | Kaggle Description                                      | Our Understanding                                       |
