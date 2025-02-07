@@ -48,3 +48,12 @@ This project utilizes a subset of the Fitzpatrick17k dataset, a collection of 17
 
 The dataset is provided as train.csv (with labels) and test.csv (unlabeled for submission). Image files are stored in an images.zip archive, with train/test splits structured into folders.
 
+### OC Labels ->
+
+| Code | Label                 | Meaning                                                                 | Count |
+|------|-----------------------|-------------------------------------------------------------------------|-------|
+| 1    | **Diagnostic**         | The image provides a **good example** of the skin condition and is **useful for diagnosis**. | 348   |
+| 2    | **Characteristic**     | The image **may show** the skin condition, but **isn't conclusive** for diagnosis. | 32    |
+| 3    | **Wrongly labeled**    | The image **does not correspond** to the labeled condition; it was **misclassified**. | 17    |
+| 4    | **Other**              | The image does **not fit any specific category**, possibly due to **image quality issues**. | 10    |
+| 5    | **Potentially Diagnostic** | The image is **unclear**, meaning **further testing** is needed to confirm its diagnostic value. | 97    |
