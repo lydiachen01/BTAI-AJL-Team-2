@@ -26,7 +26,7 @@ This project utilizes a subset of the Fitzpatrick17k dataset, a collection of 17
 | **V**     | Brown skin                                          | Rarely burns, tans darkly easily       |
 | **VI**    | Dark brown or black skin                            | Never burns, always tans darkly        |
 
-# Feature Columns ->
+### Feature Columns ->
 
 | Column                | Data Type | Kaggle Description                                      | Our Understanding                                       |
 |-----------------------|----------|---------------------------------------------------------|---------------------------------------------------------|
