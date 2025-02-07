@@ -48,7 +48,7 @@ This project utilizes a subset of the Fitzpatrick17k dataset, a collection of 17
 
 The dataset is provided as train.csv (with labels) and test.csv (unlabeled for submission). Image files are stored in an images.zip archive, with train/test splits structured into folders.
 
-### OC Labels ->
+### QC Labels ->
 
 | Code | Label                 | Meaning                                                                 | Count |
 |------|-----------------------|-------------------------------------------------------------------------|-------|
