@@ -15,3 +15,13 @@ This project utilizes a subset of the Fitzpatrick17k dataset, a collection of 17
 * Images labeled with Fitzpatrick skin tone scale (1-6), indicating skin type diversity
 
 * Annotations for medical conditions sourced from DermaAmin and Atlas Dermatologico
+
+| Column                | Data Type | Description                                              |
+|-----------------------|----------|----------------------------------------------------------|
+| `md5hash`            | Object   | Unique image identifier                                  |
+| `fitzpatrick_scale`  | Int      | Self-reported Fitzpatrick skin tone (1-6)               |
+| `fitzpatrick_centaur`| Int      | Expert-assigned Fitzpatrick skin tone                   |
+| `label`              | Object   | Target skin condition label                             |
+| `nine_partition_label`  | Object   | Grouped diagnostic category                            |
+| `three_partition_label` | Object   | Broad diagnostic classification                        |
+| `qc`                 | Object   | Quality control flag by board-certified dermatologists  |
