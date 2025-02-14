@@ -2,3 +2,5 @@
 bttai-ajl-2025/test/
 bttai-ajl-2025/train/
 train/augmented_train
+submission.csv
+trained_model.h5
