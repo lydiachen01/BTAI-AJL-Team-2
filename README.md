@@ -138,7 +138,7 @@ Loss: Weighted cross-entropy, multiplied by `sample_weight` from the `qc` column
 
 ## Ensembling 
 After training various Swin and ViT models separately, we created an ensemble to further boost classification performance. Each model produced a set of logits for each image, which we combined through weighted averaging. We tested the ensemble on a validation split by comparing ensemble predictions with ground-truth labels, achieving a higher accuracy than any single model alone. <br>
-#### **Achieved an F1 Score of 0.76, making me number 1 on Kaggle**
+#### **Achieved an F1 Score of 0.76, making us number 1 on Kaggle**
 
 ### Weights and Biases Hyperparameter Tuning 
 We used W&B to find optimal: <br>
