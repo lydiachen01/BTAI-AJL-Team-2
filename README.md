@@ -6,11 +6,14 @@
 Skin condition classification models often exhibit bias due to the lack of diverse training data, leading to disparities in healthcare, particularly for individuals with darker skin tones. This project, part of the Spring 2025 AI Studio, aims to create an equitable and explainable model that classifies 16 skin conditions across the Fitzpatrick skin tone scale.
 The competition is hosted by Break Through Tech AI and the Algorithmic Justice League (AJL), with an emphasis on equity and transparency in AI-driven healthcare solutions.
 
-### Key Highlights ->
-**Dataset:** Subset of Fitzpatrick17k (17,000 labeled dermatological images). I specifically used ~4,500 images covering 16 conditions, with Fitzpatrick skin tone (FST) labels (1–6).
-**Fairness Focus:** I tracked performance across diverse FST categories to ensure the model is not disproportionately failing on darker skin types.
-**Model Evolution:** Starting from a simple CNN with SGD → Pre-trained networks (ResNet, EfficientNet) → Transformers (ViT, Swin) → Ensemble.
-**Results:** Achieved up to 0.76 F1 Score on the test set, securing #1 on the leaderboard.
+### Key Highlights
+- **Dataset:** Subset of Fitzpatrick17k (17,000 labeled dermatological images). I specifically used ~4,500 images covering 16 conditions, with Fitzpatrick skin tone (FST) labels (1–6).
+
+- **Fairness Focus:** I tracked performance across diverse FST categories to ensure the model is not disproportionately failing on darker skin types.
+
+- **Model Evolution:** Starting from a simple CNN with SGD → Pre-trained networks (ResNet, EfficientNet) → Transformers (ViT, Swin) → Ensemble.
+
+- **Results:** Achieved up to 0.76 F1 Score on the test set, securing #1 on the leaderboard.
 
 ### Dataset Details  
 I used a subset of the Fitzpatrick17k dataset, which merges images from DermaAmin and Atlas Dermatologico, plus FST annotations from **Centaur Labs**.
@@ -24,8 +27,10 @@ I used a subset of the Fitzpatrick17k dataset, which merges images from DermaAmi
   3) Wrongly labeled: Mislabeled images
   4) Other: Poor image quality or doesn’t fit a category
   5) Potentially Diagnostic: Unclear, needs further testing
+
+<br>
  
-### Fitzpatrick Skin Types (FST) ->
+### Fitzpatrick Skin Types (FST)
 
 ![](Skin_types.png)
 
@@ -37,13 +42,13 @@ I used a subset of the Fitzpatrick17k dataset, which merges images from DermaAmi
 | **IV**    | Light brown skin                                     | Burns minimally, tans easily           |
 | **V**     | Brown skin                                          | Rarely burns, tans darkly easily       |
 | **VI**    | Dark brown or black skin                            | Never burns, always tans darkly        |
-### Skin Conditions ->
+### Distribution of Skin Conditions
 ![](skin_condition_distribution.png)
 
-### Distribution os Skin Types->
+### Distribution of Skin Types
 ![](fst_distribution.png)
 
-### Column Overview ->
+### Column Overview
 
 | Column                | Data Type | Kaggle Description                                      | Our Understanding                                       |
 |-----------------------|----------|---------------------------------------------------------|---------------------------------------------------------|
@@ -56,9 +61,10 @@ I used a subset of the Fitzpatrick17k dataset, which merges images from DermaAmi
 | `qc`                 | Object   | Quality control check by a Board-certified dermatologist. <br> The `qc` column has responses for 500 observations of the FULL FitzPatrick dataset. Only about 90 observations in the train set have responses, and only about 30 observations in the test set have responses. | **Possible Values** <br> [nan <br> '1 Diagnostic' <br> '2 Characteristic' <br> '3 Potentially' <br> '3 Wrongly labelled' <br> '4 Other'] <br> |
 | `ddi_scale`          | int64    | A column used to reconcile this dataset with another dataset (may not be relevant). <br> | Used to merge another dataset with our Fitzpatrick dataset. Mostly ignored in this project. |
 
-The dataset is provided as train.csv (with labels) and test.csv (unlabeled for submission). Image files are stored in an images.zip archive, with train/test splits structured into folders.
+> [!NOTE]
+> The dataset is provided as train.csv (with labels) and test.csv (unlabeled for submission). Image files are stored in an images.zip archive, with train/test splits structured into folders.
 
-### QC Labels ->
+### QC Labels
 
 | Code | Label                 | Meaning                                                                 | Count |
 |------|-----------------------|-------------------------------------------------------------------------|-------|
@@ -70,10 +76,10 @@ The dataset is provided as train.csv (with labels) and test.csv (unlabeled for s
 
 ![](qc_effect.png)
 ![](qc_pre_proc.png)
-### `qc` handling ->
+### Handling `qc` Values 
 #### Here's the distibution of the `qc` column across the Fitzpatrick scale:
 ![](qc_dist.png)
-### Data Loading and Preprocessing
+## Data Loading and Preprocessing
 
 _I started by loading the data from train.csv and test.csv:_ <br>
 - Added .jpg extension to each md5hash. <br>
@@ -93,40 +99,48 @@ _Missing Images: Logged them, removed from training if crucial._ <br>
 - **Partition Columns**: `nine_partition_label_encoded` & `three_partition_label_encoded` also label-encoded. <br>
 - **Final DataFrame**: Merged features into `df_train` with columns like `file_path`, `fitzpatrick_scale`, `sample_weight`, `label` (int).
 
-### Custom Transformations & Data Augmentation
-I used TorchVision transforms: <br>
-
+### Custom Transformations & Data Augmentation using TorchVision
 - Baseline Transform (mild rotation, slight color jitter). <br>
 - Minority Transform (heavier rotation, flips, brightness changes) for underrepresented classes (fewer than 100 samples). <br>
 - Validation Transform (only resize + normalize). <br>
 - PyTorch `Dataset` classes read each image from disk, convert BGR → RGB, apply the appropriate transform, and return `(image_tensor, label, sample_weight)`.
 
-### Model Architecture & Training
-**1. Initial CNN & Basic Approach <br>**
-- Started with a simple CNN and SGD.
-- Achieved modest accuracy, but recognized the complexity of multi-class dermatology data. <br>
-**2. Pre-trained Models and Transformers. (Swin and VIT)<br>**
-- `SwinForImageClassification` and `VITForImageClassification` from Hugging Face:
-* Imported one of the “swin-large-patch4-window7-224-in22k” or "google/vit-large-patch16-224-in21k" variants.
-* Set `num_labels=21` <br>
-- Phased Training:
-* Phase 1: Freeze the Swin backbone, train only classification head.
-* Phase 2: Unfreeze the entire model with a lower LR.
+<br/>
+
+## Model Architecture & Training  
+
+#### 1. Initial CNN & Basic Approach  
+- Started with a simple CNN and SGD.  
+- Achieved modest accuracy but recognized the complexity of multi-class dermatology data.  
+
+#### 2. Pre-trained Models and Transformers (Swin and ViT)  
+- **`SwinForImageClassification` and `VITForImageClassification` from Hugging Face:**  
+  - Imported one of the following variants:  
+    - `"microsoft/swin-large-patch4-window7-224-in22k"`  
+    - `"google/vit-large-patch16-224-in21k"`  
+  - Set `num_labels=21`.  
+
+- **Phased Training:**  
+  - **Phase 1:** Freeze the Swin backbone and train only the classification head.  
+  - **Phase 2:** Unfreeze the entire model with a lower learning rate (LR).  
+
 
 Optimizer: `AdamW` with a carefully tuned learning rate & weight decay (discovered via Weights & Biases sweeps). <br>
-Loss: Weighted cross-entropy, multiplied by `sample_weight` from the QC column.
+Loss: Weighted cross-entropy, multiplied by `sample_weight` from the `qc` column.
 
-## Results and Overfitting Checks 
-- Training:
-* Phase 1: ~10 epochs with the backbone frozen.
-* Phase 2: ~7 epochs unfreezing everything.
-- Validation:
-* Achieved ~0.69 F1 Score in these final runs.
-* Monitored potential overfitting with a validation DataLoader; early stopping was possible if accuracy plateaued.
+## Results and Overfitting Checks  
+
+- **Training:**  
+  - **Phase 1:** ~10 epochs with the backbone frozen.  
+  - **Phase 2:** ~7 epochs unfreezing everything.  
+
+- **Validation:**  
+  - Achieved ~0.69 F1 Score in these final runs.  
+  - Monitored potential overfitting with a validation DataLoader; early stopping was possible if accuracy plateaued.  
+
 
 ## Ensembling 
-After training various Swin and ViT models separately, we created an ensemble to further boost classification performance. Each model produced a set of logits for each image, which we combined through weighted averaging. <br>
-We tested the ensemble on a validation split by comparing ensemble predictions with ground-truth labels, achieving a higher accuracy than any single model alone. <br>
+After training various Swin and ViT models separately, we created an ensemble to further boost classification performance. Each model produced a set of logits for each image, which we combined through weighted averaging. We tested the ensemble on a validation split by comparing ensemble predictions with ground-truth labels, achieving a higher accuracy than any single model alone. <br>
 #### **Achieved an F1 Score of 0.76, making me number 1 on Kaggle**
 
 ### Weights and Biases Hyperparameter Tuning 
@@ -134,19 +148,22 @@ We used W&B to find optimal: <br>
 ![](wandb1.png)
 ![](wandb2.png)
 
-Learning Rate (coarse sweeps in [1e-4, 1e-5, etc.]) <br>
-Weight Decay - mostly 0.5 was best <br>
-Batch Size - 16, 32, or 64 <br>
-Dropout Rate <br>
-Example: The final chosen LR was 0.0001076695, weight decay 0.0000170455, discovered from a Bayesian sweep. These settings significantly improved validation performance.
+### Hyperparameters
+
+- Learning Rate - Coarse sweeps in {1e-4, 1e-5, etc.}
+- Weight Decay - mostly 0.5 was best
+- Batch Size - 16, 32, or 64
+- Dropout Rate
+
+**Example**: The final chosen LR was 0.0001076695, weight decay 0.0000170455, discovered from a Bayesian sweep. These settings significantly improved validation performance.
 
 ## Final Inference & Submission
-Test Data: Created a test transform (resize + normalize). <br>
-Iterated over test.csv, loaded each image, and performed a forward pass. <br>
-Argmax over the logits to pick the predicted label integer. <br>
-Mapped integer back to the original disease string (idx_to_label). <br>
-Saved as submission_75_initial.csv with columns [md5hash, label]. <br>
-This final submission reached 0.76 F1 Score on the leaderboard.
+- Test Data: Created a test transform (resize + normalize). 
+- Iterated over test.csv, loaded each image, and performed a forward pass.
+- Argmax over the logits to pick the predicted label integer. 
+- Mapped integer back to the original disease string (idx_to_label). 
+- Saved as submission_75_initial.csv with columns [md5hash, label]. 
+- This final submission reached 0.76 F1 Score on the leaderboard.
 
 # Conclusion
 We built a robust pipeline to handle data cleaning, augmentation, and weighting. By combining advanced transformer architectures (Swin) with phase-wise training and hyperparameter sweeps in W&B, we achieved a strong 75% accuracy. This demonstrates the potential of attention-based models for dermatology classification, while also emphasizing fairness for different skin tones.
