@@ -126,6 +126,7 @@ _Missing Images: Logged them, removed from training if crucial._ <br>
 
 Optimizer: `AdamW` with a carefully tuned learning rate & weight decay (discovered via Weights & Biases sweeps). <br>
 Loss: Weighted cross-entropy, multiplied by `sample_weight` from the `qc` column.
+<br/>
 
 ## Results and Overfitting Checks  
 
@@ -136,11 +137,12 @@ Loss: Weighted cross-entropy, multiplied by `sample_weight` from the `qc` column
 - **Validation:**  
   - Achieved ~0.69 F1 Score in these final runs.  
   - Monitored potential overfitting with a validation DataLoader; early stopping was possible if accuracy plateaued.  
-
+<br/>
 
 ## Ensembling 
 After training various Swin and ViT models separately, we created an ensemble to further boost classification performance. Each model produced a set of logits for each image, which we combined through weighted averaging. We tested the ensemble on a validation split by comparing ensemble predictions with ground-truth labels, achieving a higher accuracy than any single model alone. <br>
 #### **Achieved an F1 Score of 0.76, making me number 1 on Kaggle**
+<br/>
 
 ### Weights and Biases Hyperparameter Tuning 
 We used W&B to find optimal: <br>
@@ -155,6 +157,7 @@ We used W&B to find optimal: <br>
 - Dropout Rate
 
 **Example**: The final chosen LR was 0.0001076695, weight decay 0.0000170455, discovered from a Bayesian sweep. These settings significantly improved validation performance.
+<br/>
 
 ## Final Inference & Submission
 - Test Data: Created a test transform (resize + normalize). 
@@ -163,6 +166,7 @@ We used W&B to find optimal: <br>
 - Mapped integer back to the original disease string (idx_to_label). 
 - Saved as submission_75_initial.csv with columns [md5hash, label]. 
 - This final submission reached 0.76 F1 Score on the leaderboard.
+<br/>
 
 # Conclusion
 We built a robust pipeline to handle data cleaning, augmentation, and weighting. By combining advanced transformer architectures (Swin) with phase-wise training and hyperparameter sweeps in W&B, we achieved a strong 75% accuracy. This demonstrates the potential of attention-based models for dermatology classification, while also emphasizing fairness for different skin tones.
