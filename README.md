@@ -92,10 +92,7 @@ _Missing Images: Logged them, removed from training if crucial._ <br>
 - Missing / -1 Fitzpatrick Values: Replaced `fitzpatrick_scale` with `fitzpatrick_centaur` if possible. <br>
 - `qc` Column: Extracted numeric part (1–5) to create a qc_numeric column. <br>
 - Assigned a custom sample weight for each numeric code. <br>
-  - Ex.
-    -`1 => 1.0`
-    -`5 => 0.8`
-    -`3 => 0.0` (wrongly labeled)
+  - Ex. `1 => 1.0`, `5 => 0.8`, `3 => 0.0` (wrongly labeled). 
 
 ### Encoding Labels and Partition Columns 
 - **Label Encoding**: Mapped each of the 16 diseases to an integer using `LabelEncoder()`. <br>
