@@ -126,7 +126,7 @@ _Missing Images: Logged them, removed from training if crucial._ <br>
 
 Optimizer: `AdamW` with a carefully tuned learning rate & weight decay (discovered via Weights & Biases sweeps). <br>
 Loss: Weighted cross-entropy, multiplied by `sample_weight` from the `qc` column.
-<br/>
+<br/><br/>
 
 ## Results and Overfitting Checks  
 
