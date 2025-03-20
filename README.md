@@ -104,7 +104,6 @@ _Missing Images: Logged them, removed from training if crucial._ <br>
 - Minority Transform (heavier rotation, flips, brightness changes) for underrepresented classes (fewer than 100 samples) 
 - Validation Transform (only resize + normalize) 
 - PyTorch `Dataset` classes read each image from disk, convert BGR → RGB, apply the appropriate transform, and return `(image_tensor, label, sample_weight)`
-<br/>
 
 ## Model Architecture & Training  
 
@@ -126,7 +125,6 @@ _Missing Images: Logged them, removed from training if crucial._ <br>
 
 Optimizer: `AdamW` with a carefully tuned learning rate & weight decay (discovered via Weights & Biases sweeps). <br>
 Loss: Weighted cross-entropy, multiplied by `sample_weight` from the `qc` column.
-<br/><br/>
 
 ## Results and Overfitting Checks  
 
