@@ -81,7 +81,7 @@ I used a subset of the Fitzpatrick17k dataset, which merges images from DermaAmi
 ![](qc_dist.png)
 ## Data Loading and Preprocessing
 
-_I started by loading the data from train.csv and test.csv:_ <br>
+_Loading the data from train.csv and test.csv:_ <br>
 - Added .jpg extension to each md5hash. <br>
 - Constructed file_path: combined label + md5hash to form the image’s directory path (e.g. eczema/ecze1234.jpg). <br>
 - Verified images exist on disk using a custom check function (`check_image_paths`).
@@ -91,8 +91,8 @@ _I started by loading the data from train.csv and test.csv:_ <br>
 _Missing Images: Logged them, removed from training if crucial._ <br>
 - Missing / -1 Fitzpatrick Values: Replaced `fitzpatrick_scale` with `fitzpatrick_centaur` if possible. <br>
 - `qc` Column: Extracted numeric part (1–5) to create a qc_numeric column. <br>
-- Then assigned a custom sample weight for each numeric code. <br>
-- For example, `1 => 1.0`, `5 => 0.8`, `3 => 0.0` (wrongly labeled). 
+- Assigned a custom sample weight for each numeric code. <br>
+  - For example, `1 => 1.0`, `5 => 0.8`, `3 => 0.0` (wrongly labeled). 
 
 ### Encoding Labels and Partition Columns 
 - **Label Encoding**: Mapped each of the 16 diseases to an integer using `LabelEncoder()`. <br>
@@ -100,11 +100,10 @@ _Missing Images: Logged them, removed from training if crucial._ <br>
 - **Final DataFrame**: Merged features into `df_train` with columns like `file_path`, `fitzpatrick_scale`, `sample_weight`, `label` (int).
 
 ### Custom Transformations & Data Augmentation using TorchVision
-- Baseline Transform (mild rotation, slight color jitter). <br>
-- Minority Transform (heavier rotation, flips, brightness changes) for underrepresented classes (fewer than 100 samples). <br>
-- Validation Transform (only resize + normalize). <br>
+- Baseline Transform (mild rotation, slight color jitter) 
+- Minority Transform (heavier rotation, flips, brightness changes) for underrepresented classes (fewer than 100 samples) 
+- Validation Transform (only resize + normalize) 
 - PyTorch `Dataset` classes read each image from disk, convert BGR → RGB, apply the appropriate transform, and return `(image_tensor, label, sample_weight)`.
-
 <br/>
 
 ## Model Architecture & Training  
