@@ -1,5 +1,6 @@
 # Dermatology Image Classification with Torch (Kaggle)
 ## Equitable AI for Dermatology (Spring 2025 AI Studio)
+##### Team Members: Manik Sharma, Sherren Jie, Lydia Chen, Sukanya Iyer, and Lígia Azevedo.
 **Goal**: Develop a fair and transparent machine learning model to classify 16 different skin conditions across diverse skin tones, addressing potential biases in dermatology.
 
 ## Project Overview 
