@@ -164,4 +164,4 @@ We used W&B to find optimal: <br>
 - This final submission reached 0.76 F1 Score on the leaderboard.
 
 # Conclusion
-We built a robust pipeline to handle data cleaning, augmentation, and weighting. By combining advanced transformer architectures (Swin) with phase-wise training and hyperparameter sweeps in W&B, we achieved a strong 75% accuracy. This demonstrates the potential of attention-based models for dermatology classification, while also emphasizing fairness for different skin tones.
+We built a robust pipeline to handle data cleaning, augmentation, and weighting. By combining advanced transformer architectures (Swin and VIT) with phase-wise training and hyperparameter sweeps in W&B, we achieved a strong 0.76 F1 Score. This demonstrates the potential of attention-based models for dermatology classification, while also emphasizing fairness for different skin tones.
