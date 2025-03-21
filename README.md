@@ -8,16 +8,16 @@ Skin condition classification models often exhibit bias due to the lack of diver
 The competition is hosted by Break Through Tech AI and the Algorithmic Justice League (AJL), with an emphasis on equity and transparency in AI-driven healthcare solutions.
 
 ### Key Highlights
-- **Dataset:** Subset of Fitzpatrick17k (17,000 labeled dermatological images). I specifically used ~4,500 images covering 16 conditions, with Fitzpatrick skin tone (FST) labels (1–6).
+- **Dataset:** Subset of Fitzpatrick17k (17,000 labeled dermatological images). We specifically used ~4,500 images covering 16 conditions, with Fitzpatrick skin tone (FST) labels (1–6).
 
-- **Fairness Focus:** I tracked performance across diverse FST categories to ensure the model is not disproportionately failing on darker skin types.
+- **Fairness Focus:** We tracked performance across diverse FST categories to ensure the model is not disproportionately failing on darker skin types.
 
-- **Model Evolution:** Starting from a simple CNN with SGD → Pre-trained networks (ResNet, EfficientNet) → Transformers (ViT, Swin) → Ensemble.
+- **Model Evolution:** Starting from a simple CNN with SGD → Pre-trained networks (ResNet, EfficientNet) → Transformers (ViT, Swin) → Ensemble. <br>
 
-- **Results:** Achieved up to 0.76 F1 Score on the test set, securing #1 on the leaderboard.
+- **Results:** Achieved up to 0.76347 F1 Score on the test set, securing #1 on the leaderboard.
 
 ### Dataset Details  
-I used a subset of the Fitzpatrick17k dataset, which merges images from DermaAmin and Atlas Dermatologico, plus FST annotations from **Centaur Labs**.
+We used a subset of the Fitzpatrick17k dataset, which merges images from DermaAmin and Atlas Dermatologico, plus FST annotations from **Centaur Labs**.
 - Image Count: ~4,500 images, each labeled with a skin condition (16 classes).
 - Fitzpatrick Scale: A numeric scale (1–6) indicating how skin typically reacts to sun.
   * 1 = Very fair, always burns
@@ -161,8 +161,8 @@ We used W&B to find optimal: <br>
 - Iterated over test.csv, loaded each image, and performed a forward pass.
 - Argmax over the logits to pick the predicted label integer. 
 - Mapped integer back to the original disease string (idx_to_label). 
-- Saved as submission_75_initial.csv with columns [md5hash, label]. 
-- This final submission reached 0.76 F1 Score on the leaderboard.
+- Saved as ensemble_submission_last_original.csv with columns [md5hash, label]. 
+- This final submission reached 0.76347 F1 Score on the leaderboard.
 
 # Conclusion
 We built a robust pipeline to handle data cleaning, augmentation, and weighting. By combining advanced transformer architectures (Swin and VIT) with phase-wise training and hyperparameter sweeps in W&B, we achieved a strong 0.76 F1 Score. This demonstrates the potential of attention-based models for dermatology classification, while also emphasizing fairness for different skin tones.
