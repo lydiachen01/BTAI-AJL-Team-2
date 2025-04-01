@@ -3,6 +3,55 @@
 ##### Team Members: Manik Sharma, Sherren Jie, Lydia Chen, Sukanya Iyer, and Lígia Azevedo.
 **Goal**: Develop a fair and transparent machine learning model to classify 16 different skin conditions across diverse skin tones, addressing potential biases in dermatology.
 
+## Setup & Execution
+
+Below are the steps to get your local environment ready, run the model training, and reproduce our results.
+
+### Clone the Repo & Install Dependencies
+
+```bash
+git clone https://github.com/<YOUR-TEAM-REPO>.git
+cd <YOUR-TEAM-REPO>
+pip install -r requirements.txt
+```
+
+We used Python 3.9+ and PyTorch 2.0+
+
+Additional key libraries:
+- huggingface_hub / transformers (for ViT & Swin)
+- torchvision (for image transforms)
+- wandb (for hyperparameter sweeps, optional)
+
+### Set Up Data
+
+Download and unzip `images.zip` into `data/images/` so that each subfolder (e.g., `eczema/`, `psoriasis/`) contains the relevant `.jpg` files.
+
+Place `train.csv` and `test.csv` into `data/` as well.
+
+### Environment Variables (Optional)
+
+- If using Weights & Biases, set `WANDB_API_KEY` in your environment.
+- For local training, ensure GPU access if available (`torch.cuda.is_available()`).
+
+### Run Training
+
+```bash
+python train.py --config configs/swin_config.yaml
+```
+
+Adjust command-line args (e.g., `--batch_size 32`, `--learning_rate 1e-5`) to match your hardware constraints.
+
+### Generate Predictions
+
+```bash
+python inference.py --model_path best_model.pt --output submissions/final_submission.csv
+```
+
+### Reproduce Our Best Ensemble
+
+1. Train individual models (e.g., `vit_config.yaml`, `swin_config.yaml`)
+2. Use `ensemble.py` to combine prediction logits from multiple checkpoints and generate the final CSV for Kaggle submission.
+
 ## Project Overview 
 Skin condition classification models often exhibit bias due to the lack of diverse training data, leading to disparities in healthcare, particularly for individuals with darker skin tones. This project, part of the Spring 2025 AI Studio, aims to create an equitable and explainable model that classifies 16 skin conditions across the Fitzpatrick skin tone scale.
 The competition is hosted by Break Through Tech AI and the Algorithmic Justice League (AJL), with an emphasis on equity and transparency in AI-driven healthcare solutions.
