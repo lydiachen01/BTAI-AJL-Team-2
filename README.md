@@ -213,5 +213,25 @@ We used W&B to find optimal: <br>
 - Saved as ensemble_submission_last_original.csv with columns [md5hash, label]. 
 - This final submission reached 0.76347 F1 Score on the leaderboard.
 
+## Impact Narrative
+
+Our primary goal is to mitigate biases in dermatological AI models, especially for individuals with darker skin types. Here's how we addressed it:
+1. **Data Diversity**: We prioritized including images from all Fitzpatrick types and annotated missing types using expert labels.
+2. **Fairness Monitoring**: Throughout training, we checked per-FST metrics to ensure no single group's performance lagged significantly.
+3. **Broader Potential Impact**:
+   * **Clinical Relevance**: More equitable detection across FST categories can reduce misdiagnoses and missed conditions for darker skin tones.
+   * **Healthcare Accessibility**: This approach can inform telemedicine applications, where patients can get quicker, more reliable screenings.
+We used a brief storytelling approach to highlight the potential real-world scenario of a patient with a darker skin tone receiving the correct early warning for malignant melanoma, reducing disparities in care outcomes.
+
+## Next Steps & Future Improvements
+* **Incorporate Explainability Tools**
+   * SHAP or Grad-CAM to visualize model attention across different FSTs.
+* **Expand Dataset**
+   * Combine additional open-source dermoscopy image datasets to increase sample size for minority classes.
+* **Further Fairness Metrics**
+   * Beyond per-FST accuracy or F1, investigate parity in false negative rates across groups.
+* **Real-time Clinical Testing**
+   * Collaborate with dermatologists to evaluate model output on new, real-world images.
+
 # Conclusion
 We built a robust pipeline to handle data cleaning, augmentation, and weighting. By combining advanced transformer architectures (Swin and VIT) with phase-wise training and hyperparameter sweeps in W&B, we achieved a strong 0.76 F1 Score. This demonstrates the potential of attention-based models for dermatology classification, while also emphasizing fairness for different skin tones.
